@@ -16,14 +16,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 //app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/index.html', function(req, res) {
-  res.sendfile('views/index.html')
+app.get('/*.html', function(req, res) {
+  res.sendfile('views/'+req.path);
 });
 
 app.get(['/stylesheets/*.css', '/javascripts/*.js'], function(req, res) {
     var delay = req.query.delay ? req.query.delay * 1000 : 0;
     setTimeout(function(){
-        console.log('req.path: '+ req.path);
         res.sendfile('public/'+req.path);
     }, delay);
 });
