@@ -14,13 +14,16 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-//app.use(express.static(path.join(__dirname, 'public')));
+//app.use(express.static(path.join(__dirname, 'public/images')));
 
 app.get('/*.html', function(req, res) {
-  res.sendfile('views/'+req.path);
+    var delay = req.query.delay ? req.query.delay * 1000 : 0;
+    setTimeout(function () {
+        res.sendfile('views/' + req.path);
+    }, delay);
 });
 
-app.get(['/stylesheets/*.css', '/javascripts/*.js'], function(req, res) {
+app.get(['/stylesheets/*.css', '/javascripts/*.js', '/images/*.png'], function(req, res) {
     var delay = req.query.delay ? req.query.delay * 1000 : 0;
     setTimeout(function(){
         res.sendfile('public/'+req.path);

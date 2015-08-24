@@ -2,13 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name=viewport content="width=device-width, initial-scale=1">
     <title>A little bit beyond basics ppt</title>
 
-    <link rel="stylesheet" href="/stylesheets/style.css"/>
+    <link rel="stylesheet" href="/stylesheets/style.css?delay=0.5"/>
     <script src="/javascripts/analyticsJs.js?delay=1" async></script>
     <script src="/javascripts/domJs.js?delay=1" async></script>
 </head>
 <body>
+
+<h1>Async</h1>
 
 <p>
     This explains how you can use the async attribute to download js files that don't touch the DOM.
@@ -17,8 +20,22 @@
 
 <dl>
     <dt>Async</dt>
-    <dd>The boolean async attribute on script elements allows the external JavaScript file to run when it's available, without delaying page load first.</dd>
+    <dd>
+        The boolean async attribute on script elements allows the external JavaScript file to run when it's available, without delaying page load first.
+    </dd>
 </dl>
+
+<h2>Additional Info</h2>
+<p>
+    <b>If your second script depends upon the first script (e.g. your second script uses the jQuery loaded in the first script), then you can't make them async without additional code to control execution order </b>, but you can make them defer because defer scripts will still be executed in order, just not until after the document has been parsed. If you have that code and you don't need the scripts to run right away, you can make them async or defer. <br><br>
+    You could put the scripts in the &lt;head&gt; tag and set them to defer and the loading of the scripts will be deferred until the DOM has been parsed and that will get fast page display in new browsers that support defer, but it won't help you at all in older browsers and it isn't really any faster than just putting the scripts right before &lt;/body&gt; which works in all browsers. So, you can see why it's just best to put them right before &lt;/body&gt;. <br><br>
+    <b>Async is more useful when you really don't care when the script loads and nothing else that is user dependent depends upon that script loading. The most often cited example for using async is an analytics script like Google Analytics that you don't want anything to wait for and it's not urgent to run soon and it stands alone so nothing else depends upon it.<br><br>
+    Usually the jQuery library is not a good candidate for async because other scripts depend upon it and you want to install event handlers so your page can start responding to user events and you may need to run some jQuery-based initialization code to establish the initial state of the page. It can be used async, but other scripts will have to be coded to not execute until jQuery is loaded. </b>
+</p>
+
+<img width="980px" src="/images/asyncVsDefer.png" alt="Async vs Defer"/>
+
+<img width="980px" src="/images/asyncCanIUse.png" alt="Can I use async?"/>
 
 <h2> 1st paragraph</h2>
 <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>
